@@ -3,7 +3,7 @@
 
 #include <string>
 #include <vector>
-#include "HealthCenter.h"
+#include "Store.h"
 #include "Data.h"
 #include "Person.h"
 
@@ -14,8 +14,8 @@ class FileHandler
     public:
         FileHandler();
         void Print();
-        vector<Store> getHealthCenters(string filePath);
-        vector<Person> getPeople(string filePath, vector<Store> healthCenters);
+        vector<Store> getStores(string filePath);
+        vector<Person> getPeople(string filePath, vector<Store> stores);
 };
 
 #endif

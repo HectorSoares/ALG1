@@ -1,12 +1,13 @@
 #include "FileHandler.h"
 #include "Data.h"
 #include "Person.h"
-#include "HealthCenter.h"
+#include "Store.h"
 
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <vector>
+#include <map>
 
 using namespace std;
 
@@ -18,40 +19,64 @@ void FileHandler::Print() {
     printf("Test\n");
 }
 
-vector<Store> FileHandler::getHealthCenters(string filePath) {
-    string line, delimiter = " ", world, distance;
-    int  pos=0, healthCenterCount;
-    int  healthCenterCapacity, healthCenterX, healthCenterY ;
-    vector<Store> healthCenters;
+string ReturnNextWord(string &line){
+    int pos;
+    string result, delimiter = " ";
+    pos = line.find(delimiter);
+    result = line.substr(0, pos);
+    line = (line.substr(pos+1, line.length()-1));
+    return result;
+}
+
+static const map<string, int> scoreState {
+        { "MG",  0 },
+        { "PR",  10 },
+        { "SP",  20 },
+        { "SC",  30 },
+        { "RJ",  40 },
+        { "RN",  50 },
+        { "RS",  60 }
+    };
+
+static const map<string, int> scorePayment {
+        { "DINHEIRO",  1 },
+        { "DEBITO",  2 },
+        { "CREDITO",  3 }
+    };
+
+vector<Store> FileHandler::getStores(string filePath) {
+    string line, age, state, distance;
+    int  storeCount;
+    int  storeCapacity, storeX, storeY ;
+    vector<Store> stores;
     
     ifstream File(filePath);
     if (!File.eof() && File.fail()){
         cout << "error reading " << filePath << endl;
     } else {
         getline (File, line);
-        healthCenterCount = stoi(line);       
-
-        for(int i = 0; healthCenterCount > i; i++){
+        getline (File, line);
+        storeCount = stoi(line);  
+        cout << "Numero de lojas: " << storeCount << endl;
+        for(int i = 0; storeCount > i; i++){
             getline (File, line);
-            pos = line.find(delimiter);
-            healthCenterCapacity = stoi(line.substr(0, pos));
-            line = (line.substr(pos+1, line.length()-1));
-            pos = line.find(delimiter);
-            healthCenterX = stoi(line.substr(0, pos));
-            line = (line.substr(pos+1, line.length()-1));
-            pos = line.find(delimiter);
-            healthCenterY = stoi(line.substr(0, pos));
-            healthCenters.push_back(Store(i, healthCenterX, healthCenterY, healthCenterCapacity));
+            storeCapacity = stoi(ReturnNextWord(line));
+            storeX = stoi(ReturnNextWord(line));
+            storeY = stoi(ReturnNextWord(line));
+            stores.push_back(Store(i, storeX, storeY, storeCapacity));
+            printf("Loja: %i - Estoque: %i - Localidade: (%i,%i)", i, storeCapacity, storeX, storeY);
+            cout << endl;            
         }
     }
     File.close();
-    return healthCenters;
+    return stores;
 }
 
-vector<Person> FileHandler::getPeople(string filePath, vector<Store> healthCenters) {
-    string line, delimiter = " ", world, distance;
-    int  pos=0, healthCenterCount, peopleCount;
+vector<Person> FileHandler::getPeople(string filePath, vector<Store> stores) {
+    string line, state, payment, distance;
+    int   storeCount, peopleCount;
     int  personAge, personX, personY ;
+    float ticket;
     vector<Person> people;
     
     ifstream File(filePath);
@@ -59,25 +84,28 @@ vector<Person> FileHandler::getPeople(string filePath, vector<Store> healthCente
         cout << "error reading " << filePath << endl;
     } else {
         getline (File, line);
-        healthCenterCount = stoi(line);       
+        getline (File, line);
+        storeCount = stoi(line);       
 
-        for(int i = 0; healthCenterCount > i; i++){
+        for(int i = 0; storeCount > i; i++){
             getline (File, line);          
         }
         getline (File, line);
         peopleCount = stoi(line);
+        cout << "Numero de pessoas: " << peopleCount << endl;
 
         for(int i = 0; peopleCount > i; i++){
             getline (File, line); 
-            pos = line.find(delimiter);
-            personAge = stoi(line.substr(0, pos));
-            line = (line.substr(pos+1, line.length()-1));
-            pos = line.find(delimiter);
-            personX = stoi(line.substr(0, pos));
-            line = (line.substr(pos+1, line.length()-1));
-            pos = line.find(delimiter);
-            personY = stoi(line.substr(0, pos));
-            people.push_back(Person(i, personX, personY, personAge, healthCenters));
+            personAge = stoi(ReturnNextWord(line));
+            state = ReturnNextWord(line);
+            payment = ReturnNextWord(line);
+            personX = stoi(ReturnNextWord(line));
+            personY = stoi(ReturnNextWord(line));  
+            ticket =  abs((60-personAge)+scoreState.find(state)->second) / scorePayment.find(payment)->second;   
+            people.push_back(Person(i, personX, personY, personAge, ticket, stores));
+            printf("Pessoa: %i - Idade: %i - Localidade: (%i,%i) - Pagamento: %i - Estado: %i", i, personAge, personX, personY, scorePayment.find(payment)->second, scoreState.find(state)->second);
+            cout <<" ( " << payment << " - " << state << ")";
+            cout << endl;
         }
     }
     File.close();
