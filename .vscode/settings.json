@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "*.tcc": "cpp",
+        "optional": "cpp",
+        "cmath": "cpp",
+        "new": "cpp",
+        "iostream": "cpp"
+    },
+    "diffEditor.maxComputationTime": 0,
+    "files.maxMemoryForLargeFilesMB": 16384,
+    "C_Cpp.intelliSenseMemoryLimit": 16384,
+    "editor.tabSize": 2
+}
