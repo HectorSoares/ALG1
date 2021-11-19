@@ -18,14 +18,14 @@ class Person
         int getId();
         int getAge();
         float getTicket();
-        vector<tuple<double,int>> getDistances();
-        vector<tuple<double,int>> getDistanceByStores(vector<Store> store);
+        vector<tuple<int,int>> getDistances();
+        vector<tuple<int,int>> getDistanceByStores(vector<Store> store);
         friend bool operator< (const Person &p1,const Person &p2);
 
     private:
         int id, x, y, age;
         float ticket;
-        vector<tuple<double,int>> distances;
+        vector<tuple<int,int>> distances;
 };
 
 #endif

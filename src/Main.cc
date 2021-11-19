@@ -18,17 +18,18 @@ int main(int argc, char* argv[]) {
     stores = file->getStores(filePath);
     people = file->getPeople(filePath, stores);
     bool boolAdd = false;
-    cout << endl;
 
-    sort(people.begin(), people.end(), [](Person &a, Person &b){return ( a.getAge() > b.getAge() ) || (a.getAge() == b.getAge() && a.getId() < b.getId());});
-  
+    sort(people.begin(), people.end(), [](Person &a, Person &b){return ( a.getTicket() > b.getTicket() ) || (a.getTicket() == b.getTicket() && a.getId() > b.getId());});
     for(Person person:people){
         boolAdd = false;
+        // person.Print();
+        // cout << endl;
         for(tuple<double,int> distance:person.getDistances()){
             if(stores[get<1>(distance)].getCapacity() > 0 && !boolAdd){
+                printf("Pessoa %i alocada na loja %i \n",person.getId(), stores[get<1>(distance)].getId());
                 stores[get<1>(distance)].SetPerson(person.getId());
                 boolAdd=true;
-            }
+            }     
         }
         if(!boolAdd) break;
         

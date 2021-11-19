@@ -29,22 +29,41 @@ int Person::getAge(){return this->age;}
 
 float Person::getTicket(){return this->ticket;}
 
+int findDistance(int x, int y, int xDestiny, int yDestiny){
+    int moves = 0;
+    printf("(%i,%i) to (%i,%i)", x, y, xDestiny, yDestiny);
+    while (x != xDestiny || y != yDestiny){
+        if(x > xDestiny){
+            x--;
+        } else if (x < xDestiny){
+            x++;
+        }
+        
+        if(y > yDestiny){
+            y--;
+        } else if (y < yDestiny){
+            y++;
+        }
+
+        moves++;
+    }
+    return moves;
+}
+
 // bool operator< (const Person &person_1,const Person &person_2)
 // {
 //   return person_1.age > person_2.age || (person_1.age == person_2.age && person_1.id<person_2.id);
 // }
 
-vector<tuple<double,int>> Person::getDistances(){return this->distances;}
+vector<tuple<int,int>> Person::getDistances(){return this->distances;}
 
-vector<tuple<double,int>> Person::getDistanceByStores(vector<Store> stores){
-    vector<tuple<double,int>> distances;
-    double distance;
+vector<tuple<int,int>> Person::getDistanceByStores(vector<Store> stores){
+    vector<tuple<int,int>> distances;
+    int distance;
+    cout << "Pessoa: " << this->getId() << "------" << endl;
     for(Store store: stores){
-        distance = sqrt(
-        (pow(this->x-store.getX(),2))
-        +
-        (pow(this->y-store.getY(),2))
-        );
+        distance = findDistance(this->x, this->y, store.getX(), store.getY());
+        cout << "distance: " << distance << endl <<" lojaId: " << store.getId() << endl ;
         distances.push_back({distance , store.getId()});
     } 
     sort(distances.begin(),distances.end());
