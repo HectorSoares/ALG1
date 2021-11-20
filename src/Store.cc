@@ -20,18 +20,30 @@ void Store::SetPerson(int id){
     if(this->capacity){
         //this->allocatedPeople.push_back(id);
         //this->capacity--;
-        // if(this->allocatedPeople.size() == 0){
-        //     this->allocatedPeople.push_back(id);
-        //     this->capacity--;
+        // if(this->allocatedPeople.size() == 0){        
+            // this->allocatedPeople.push_back(id);
+            // this->capacity--;
         // } else {
-            for (long unsigned int i = 0; i < this->allocatedPeople.size(); i++ ){
+            // for (long unsigned int i = 0; i < this->allocatedPeople.size(); i++ ){
+            //     if(this->allocatedPeople[i] == -1){
+            //         this->allocatedPeople[i] = id;
+            //         this->capacity--;
+            //         break;
+            //     }
+            // }  
+        // }
+
+        for (long unsigned int i = 0; i < this->allocatedPeople.size(); i++ ){
                 if(this->allocatedPeople[i] == -1){
-                    this->allocatedPeople[i] = id;
+                    long unsigned int j = i;
+                    for(; j < this->allocatedPeople.size()-1;  j++ ){
+                        this->allocatedPeople[j] = this->allocatedPeople[j+1];
+                    }
+                    this->allocatedPeople[this->allocatedPeople.size()-1] = id;
                     this->capacity--;
                     break;
                 }
-            }  
-        // }
+            } 
         
         
     }  

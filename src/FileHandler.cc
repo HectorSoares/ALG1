@@ -101,11 +101,11 @@ vector<Person> FileHandler::getPeople(string filePath, vector<Store> stores) {
             payment = ReturnNextWord(line);
             personX = stoi(ReturnNextWord(line));
             personY = stoi(ReturnNextWord(line));  
-            ticket =  abs((60-personAge)+scoreState.find(state)->second) / scorePayment.find(payment)->second;   
+            ticket =  (abs(60-personAge)+scoreState.find(state)->second) / scorePayment.find(payment)->second;   
             people.push_back(Person(i, personX, personY, personAge, ticket, stores));
             //printf("Pessoa: %i - Idade: %i - Localidade: (%i,%i) - Ticket: %f -  Pagamento: %i - Estado: %i", i, personAge, personX, personY, ticket, scorePayment.find(payment)->second, scoreState.find(state)->second);
-            //cout <<" ( " << payment << " - " << state << ")";
-            //cout << endl;
+            // cout <<" ( " << payment << " - " << state << ")";
+            // cout << endl;
         }
     }
     File.close();

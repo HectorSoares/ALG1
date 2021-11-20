@@ -81,9 +81,9 @@ vector<tuple<int,int>> Person::getDistanceByStores(vector<Store> stores){
 }
 
 void Person::Print(){
-    cout << "Id: " << this->id << endl;
-    cout << "Age: " << this->age << endl;
-    cout << "(x,y): " << '(' << this->x << ',' << this->y << ')' << endl;
-    cout << "Ticket: " << this->ticket << endl;
+    cout << "Id: " << this->id << " - ";
+    cout << "Age: " << this->age << " - ";
+    cout << "(x,y): " << '(' << this->x << ',' << this->y << ')' << " - ";
+    cout << "Ticket: " << this->ticket << " - ";
     cout << "Loja atual: " << this->storeId << endl << endl;
 }
