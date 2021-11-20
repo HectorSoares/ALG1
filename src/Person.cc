@@ -74,10 +74,7 @@ vector<tuple<int,int>> Person::getDistanceByStores(vector<Store> stores){
     cout << "Pessoa: " << this->getId() << "------" << endl;
     for(Store store: stores){
         distance = findDistance(this->x, this->y, store.getX(), store.getY());
-        cout << "distance: " << distance << endl <<" lojaId: " << store.getId() << endl ;
-
         distances.push_back({distance , store.getId()});
-        cout<<"------";
     } 
     sort(distances.begin(),distances.end());
     return distances;

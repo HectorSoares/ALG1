@@ -14,7 +14,6 @@ Store::Store(int id, int x, int y, int capacity) {
     for(int i = 0; i < capacity; i++){
         this->allocatedPeople.push_back(-1);
     }
-    cout << "Loja: " << id << " Capacidade: " << this->allocatedPeople.size() << endl;
 }
 
 void Store::SetPerson(int id){
@@ -33,8 +32,6 @@ void Store::SetPerson(int id){
                 }
             }  
         // }
-
-        cout << "Size allocatedPeople: " << this->allocatedPeople.size() << endl;;
         
         
     }  

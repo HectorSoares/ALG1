@@ -57,14 +57,14 @@ vector<Store> FileHandler::getStores(string filePath) {
         getline (File, line);
         getline (File, line);
         storeCount = stoi(line);  
-        cout << "Numero de lojas: " << storeCount << endl;
+        //cout << "Numero de lojas: " << storeCount << endl;
         for(int i = 0; storeCount > i; i++){
             getline (File, line);
             storeCapacity = stoi(ReturnNextWord(line));
             storeX = stoi(ReturnNextWord(line));
             storeY = stoi(ReturnNextWord(line));
             stores.push_back(Store(i, storeX, storeY, storeCapacity));
-            printf("Loja: %i - Estoque: %i - Localidade: (%i,%i)", i, storeCapacity, storeX, storeY);
+            //printf("Loja: %i - Estoque: %i - Localidade: (%i,%i)", i, storeCapacity, storeX, storeY);
             cout << endl;            
         }
     }
@@ -92,7 +92,7 @@ vector<Person> FileHandler::getPeople(string filePath, vector<Store> stores) {
         }
         getline (File, line);
         peopleCount = stoi(line);
-        cout << "Numero de pessoas: " << peopleCount << endl;
+        //cout << "Numero de pessoas: " << peopleCount << endl;
 
         for(int i = 0; peopleCount > i; i++){
             getline (File, line); 
@@ -103,9 +103,9 @@ vector<Person> FileHandler::getPeople(string filePath, vector<Store> stores) {
             personY = stoi(ReturnNextWord(line));  
             ticket =  abs((60-personAge)+scoreState.find(state)->second) / scorePayment.find(payment)->second;   
             people.push_back(Person(i, personX, personY, personAge, ticket, stores));
-            printf("Pessoa: %i - Idade: %i - Localidade: (%i,%i) - Ticket: %f -  Pagamento: %i - Estado: %i", i, personAge, personX, personY, ticket, scorePayment.find(payment)->second, scoreState.find(state)->second);
-            cout <<" ( " << payment << " - " << state << ")";
-            cout << endl;
+            //printf("Pessoa: %i - Idade: %i - Localidade: (%i,%i) - Ticket: %f -  Pagamento: %i - Estado: %i", i, personAge, personX, personY, ticket, scorePayment.find(payment)->second, scoreState.find(state)->second);
+            //cout <<" ( " << payment << " - " << state << ")";
+            //cout << endl;
         }
     }
     File.close();
