@@ -64,8 +64,8 @@ vector<Store> FileHandler::getStores(string filePath) {
             storeX = stoi(ReturnNextWord(line));
             storeY = stoi(ReturnNextWord(line));
             stores.push_back(Store(i, storeX, storeY, storeCapacity));
-            // printf("Loja: %i - Estoque: %i - Localidade: (%i,%i)", i, storeCapacity, storeX, storeY);
-            // cout << endl;            
+            printf("Loja: %i - Estoque: %i - Localidade: (%i,%i)", i, storeCapacity, storeX, storeY);
+            cout << endl;            
         }
     }
     File.close();
@@ -103,9 +103,9 @@ vector<Person> FileHandler::getPeople(string filePath, vector<Store> stores) {
             personY = stoi(ReturnNextWord(line));  
             ticket =  abs((60-personAge)+scoreState.find(state)->second) / scorePayment.find(payment)->second;   
             people.push_back(Person(i, personX, personY, personAge, ticket, stores));
-            // printf("Pessoa: %i - Idade: %i - Localidade: (%i,%i) - Ticket: %f -  Pagamento: %i - Estado: %i", i, personAge, personX, personY, ticket, scorePayment.find(payment)->second, scoreState.find(state)->second);
-            // cout <<" ( " << payment << " - " << state << ")";
-            // cout << endl;
+            printf("Pessoa: %i - Idade: %i - Localidade: (%i,%i) - Ticket: %f -  Pagamento: %i - Estado: %i", i, personAge, personX, personY, ticket, scorePayment.find(payment)->second, scoreState.find(state)->second);
+            cout <<" ( " << payment << " - " << state << ")";
+            cout << endl;
         }
     }
     File.close();

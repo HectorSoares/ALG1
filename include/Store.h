@@ -17,6 +17,7 @@ class Store
         int getY();
         int getId();
         int getCapacity();
+        void removePerson(int id);
 
     private:
         int id, x, y, capacity;
