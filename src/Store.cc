@@ -69,13 +69,6 @@ int Store::getId(){return this->id;}
 
 int Store::getCapacity(){return this->capacity;}
 
-
-void Store::Print(){
-    cout << "Id: " << this->id << endl;
-    cout << "Capacidade: " << this->capacity << endl;
-    cout << "(x,y): " << '(' << this->x << ',' << this->y << ')' << endl;    
-}
-
 void Store::PrintResult(){
     if (this->allocatedPeople.size()) {
         cout << this->id << endl;
@@ -86,6 +79,6 @@ void Store::PrintResult(){
             }
         }
         cout << endl;
-  }  
+    }  
 }
 

@@ -18,7 +18,6 @@ class Store
         int getId();
         int getCapacity();
         void removePerson(int id);
-
     private:
         int id, x, y, capacity;
         vector<int> allocatedPeople;

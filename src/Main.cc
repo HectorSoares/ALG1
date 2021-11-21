@@ -1,5 +1,4 @@
 #include "FileHandler.h"
-#include "Data.h"
 #include "Person.h"
 #include <ctime>
 #include <cstdio>
@@ -9,7 +8,6 @@
 #include <algorithm>
 using namespace std;
 
-
 int main(int argc, char* argv[]) {
     string filePath = argv[1];    
     vector<Store> stores;
@@ -18,48 +16,34 @@ int main(int argc, char* argv[]) {
     stores = file->getStores(filePath);
     people = file->getPeople(filePath, stores);
     sort(people.begin(), people.end(), [](Person &a, Person &b){return ( a.getTicket() > b.getTicket() ) || (a.getTicket() == b.getTicket() && a.getId() < b.getId());});
-    for(Person person:people){
-        person.Print();
-    }
-    bool hasAvailableStore = false ;
-    for (long unsigned int i = 0; i < stores.size(); i++){
-        //inverter loja se pa
-        //printf("Loja %i com capacidade %i", stores[i].getId(), stores[i].getCapacity());
+    bool hasAvailableStore = false;
+
+    for (long unsigned int i = 0; i < stores.size(); i++){   
         while(stores[i].getCapacity() > 0){
-            bool boolAdd = false;
-            // stores[i].PrintResult();
-            // cout  << " ---- " << endl;
+            bool boolAdd = false;           
             for(long unsigned int j = 0; j < people.size(); j++){
-                if(people[j].getStoreId() == -1 && stores[i].getCapacity() > 0){      
-                    //printf("Loja %i com espaço, então adiciona o cliente %i \n", stores[i].getId(), people[j].getId());                                     
+                if(people[j].getStoreId() == -1 && stores[i].getCapacity() > 0){                      
                     people[j].setStore(stores[i].getId());
                     stores[i].SetPerson(people[j].getId());
                     boolAdd = true;                   
-                } else {
-                    //printf("Pessoa %i preencida com Loja %i... \n", people[j].getId(), people[j].getStoreId());
+                } else {                   
                     if(people[j].getDistanceToTheStore(stores[i]) < people[j].getDistanceToTheStore(stores[people[j].getStoreId()]) || 
-                        (people[j].getDistanceToTheStore(stores[i]) == people[j].getDistanceToTheStore(stores[people[j].getStoreId()]) && stores[i].getId() < people[j].getStoreId())) {
-                        //printf("Mas a distancia da Loja %i eh menor que a loja %i para o aluno %i \n", stores[i].getId(), people[j].getStoreId(), people[j].getId());
+                        (people[j].getDistanceToTheStore(stores[i]) == people[j].getDistanceToTheStore(stores[people[j].getStoreId()]) && stores[i].getId() < people[j].getStoreId())) {                       
                         stores[people[j].getStoreId()].removePerson(people[j].getId());                       
-                        hasAvailableStore = true;
-                        //printf("Removeu pessoa %i da Loja %i \n", people[j].getId(), stores[people[j].getStoreId()].getId());
+                        hasAvailableStore = true;                       
                         people[j].setStore(stores[i].getId());
-                        stores[i].SetPerson(people[j].getId());
-                        //printf("Adicionou pessoa %i na Loja %i \n", people[j].getId(), stores[i].getId());
+                        stores[i].SetPerson(people[j].getId());                       
                         boolAdd = true;
                     }
-                }
-                // people[people[j].getId()].setStore(people[j].getStoreId());
+                }               
                 if(stores[i].getCapacity() == 0) break;
                 if(boolAdd) continue;
             }            
         }
-        if(hasAvailableStore){ i = -1; hasAvailableStore=false; }
-        
+        if(hasAvailableStore){ i = -1; hasAvailableStore=false; }        
     }
     for(long unsigned int i = 0; i < stores.size(); i++){
         stores[i].PrintResult();
     }
     return 0;
 }
-

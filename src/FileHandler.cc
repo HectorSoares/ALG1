@@ -1,8 +1,6 @@
 #include "FileHandler.h"
-#include "Data.h"
 #include "Person.h"
 #include "Store.h"
-
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -11,13 +9,7 @@
 
 using namespace std;
 
-FileHandler::FileHandler() {
-
-}
-
-void FileHandler::Print() {
-    printf("Test\n");
-}
+FileHandler::FileHandler() {}
 
 string ReturnNextWord(string &line){
     int pos;
@@ -57,14 +49,13 @@ vector<Store> FileHandler::getStores(string filePath) {
         getline (File, line);
         getline (File, line);
         storeCount = stoi(line);  
-        //cout << "Numero de lojas: " << storeCount << endl;
+        
         for(int i = 0; storeCount > i; i++){
             getline (File, line);
             storeCapacity = stoi(ReturnNextWord(line));
             storeX = stoi(ReturnNextWord(line));
             storeY = stoi(ReturnNextWord(line));
-            stores.push_back(Store(i, storeX, storeY, storeCapacity));
-            //printf("Loja: %i - Estoque: %i - Localidade: (%i,%i)", i, storeCapacity, storeX, storeY);
+            stores.push_back(Store(i, storeX, storeY, storeCapacity));            
             cout << endl;            
         }
     }
@@ -85,15 +76,12 @@ vector<Person> FileHandler::getPeople(string filePath, vector<Store> stores) {
     } else {
         getline (File, line);
         getline (File, line);
-        storeCount = stoi(line);       
-
+        storeCount = stoi(line);
         for(int i = 0; storeCount > i; i++){
             getline (File, line);          
         }
         getline (File, line);
         peopleCount = stoi(line);
-        //cout << "Numero de pessoas: " << peopleCount << endl;
-
         for(int i = 0; peopleCount > i; i++){
             getline (File, line); 
             personAge = stoi(ReturnNextWord(line));
@@ -102,10 +90,7 @@ vector<Person> FileHandler::getPeople(string filePath, vector<Store> stores) {
             personX = stoi(ReturnNextWord(line));
             personY = stoi(ReturnNextWord(line));  
             ticket =  (abs(60-personAge)+scoreState.find(state)->second) / scorePayment.find(payment)->second;   
-            people.push_back(Person(i, personX, personY, personAge, ticket, stores));
-            //printf("Pessoa: %i - Idade: %i - Localidade: (%i,%i) - Ticket: %f -  Pagamento: %i - Estado: %i", i, personAge, personX, personY, ticket, scorePayment.find(payment)->second, scoreState.find(state)->second);
-            // cout <<" ( " << payment << " - " << state << ")";
-            // cout << endl;
+            people.push_back(Person(i, personX, personY, personAge, ticket, stores));           
         }
     }
     File.close();

@@ -4,7 +4,6 @@
 #include <string>
 #include <vector>
 #include "Store.h"
-#include "Data.h"
 #include "Person.h"
 
 using namespace std;
