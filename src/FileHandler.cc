@@ -1,5 +1,5 @@
 #include "FileHandler.h"
-#include "Person.h"
+#include "Client.h"
 #include "Store.h"
 #include <iostream>
 #include <fstream>
@@ -55,20 +55,19 @@ vector<Store> FileHandler::getStores(string filePath) {
             storeCapacity = stoi(ReturnNextWord(line));
             storeX = stoi(ReturnNextWord(line));
             storeY = stoi(ReturnNextWord(line));
-            stores.push_back(Store(i, storeX, storeY, storeCapacity));            
-            cout << endl;            
+            stores.push_back(Store(i, storeX, storeY, storeCapacity));
         }
     }
     File.close();
     return stores;
 }
 
-vector<Person> FileHandler::getPeople(string filePath, vector<Store> stores) {
+vector<Client> FileHandler::getClients(string filePath, vector<Store> stores) {
     string line, state, payment, distance;
-    int   storeCount, peopleCount;
+    int   storeCount, clientCount;
     int  personAge, personX, personY ;
     float ticket;
-    vector<Person> people;
+    vector<Client> client;
     
     ifstream File(filePath);
     if (!File.eof() && File.fail()){
@@ -81,8 +80,8 @@ vector<Person> FileHandler::getPeople(string filePath, vector<Store> stores) {
             getline (File, line);          
         }
         getline (File, line);
-        peopleCount = stoi(line);
-        for(int i = 0; peopleCount > i; i++){
+        clientCount = stoi(line);
+        for(int i = 0; clientCount > i; i++){
             getline (File, line); 
             personAge = stoi(ReturnNextWord(line));
             state = ReturnNextWord(line);
@@ -90,9 +89,9 @@ vector<Person> FileHandler::getPeople(string filePath, vector<Store> stores) {
             personX = stoi(ReturnNextWord(line));
             personY = stoi(ReturnNextWord(line));  
             ticket =  (abs(60-personAge)+scoreState.find(state)->second) / scorePayment.find(payment)->second;   
-            people.push_back(Person(i, personX, personY, personAge, ticket, stores));           
+            client.push_back(Client(i, personX, personY, personAge, ticket, stores));           
         }
     }
     File.close();
-    return people;
+    return client;
 }

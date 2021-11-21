@@ -1,5 +1,5 @@
 #include "FileHandler.h"
-#include "Person.h"
+#include "Client.h"
 #include <ctime>
 #include <cstdio>
 #include <string>
@@ -11,28 +11,28 @@ using namespace std;
 int main(int argc, char* argv[]) {
     string filePath = argv[1];    
     vector<Store> stores;
-    vector<Person> people;
+    vector<Client> clients;
     FileHandler* file = new FileHandler();
     stores = file->getStores(filePath);
-    people = file->getPeople(filePath, stores);
-    sort(people.begin(), people.end(), [](Person &a, Person &b){return ( a.getTicket() > b.getTicket() ) || (a.getTicket() == b.getTicket() && a.getId() < b.getId());});
+    clients = file->getClients(filePath, stores);
+    sort(clients.begin(), clients.end(), [](Client &a, Client &b){return ( a.getTicket() > b.getTicket() ) || (a.getTicket() == b.getTicket() && a.getId() < b.getId());});
     bool hasAvailableStore = false;
 
     for (long unsigned int i = 0; i < stores.size(); i++){   
         while(stores[i].getCapacity() > 0){
             bool boolAdd = false;           
-            for(long unsigned int j = 0; j < people.size(); j++){
-                if(people[j].getStoreId() == -1 && stores[i].getCapacity() > 0){                      
-                    people[j].setStore(stores[i].getId());
-                    stores[i].SetPerson(people[j].getId());
+            for(long unsigned int j = 0; j < clients.size(); j++){
+                if(clients[j].getStoreId() == -1 && stores[i].getCapacity() > 0){                      
+                    clients[j].setStore(stores[i].getId());
+                    stores[i].setClient(clients[j].getId());
                     boolAdd = true;                   
                 } else {                   
-                    if(people[j].getDistanceToTheStore(stores[i]) < people[j].getDistanceToTheStore(stores[people[j].getStoreId()]) || 
-                        (people[j].getDistanceToTheStore(stores[i]) == people[j].getDistanceToTheStore(stores[people[j].getStoreId()]) && stores[i].getId() < people[j].getStoreId())) {                       
-                        stores[people[j].getStoreId()].removePerson(people[j].getId());                       
+                    if(clients[j].getDistanceToTheStore(stores[i]) < clients[j].getDistanceToTheStore(stores[clients[j].getStoreId()]) || 
+                        (clients[j].getDistanceToTheStore(stores[i]) == clients[j].getDistanceToTheStore(stores[clients[j].getStoreId()]) && stores[i].getId() < clients[j].getStoreId())) {                       
+                        stores[clients[j].getStoreId()].removeClient(clients[j].getId());                       
                         hasAvailableStore = true;                       
-                        people[j].setStore(stores[i].getId());
-                        stores[i].SetPerson(people[j].getId());                       
+                        clients[j].setStore(stores[i].getId());
+                        stores[i].setClient(clients[j].getId());                       
                         boolAdd = true;
                     }
                 }               
@@ -43,7 +43,7 @@ int main(int argc, char* argv[]) {
         if(hasAvailableStore){ i = -1; hasAvailableStore=false; }        
     }
     for(long unsigned int i = 0; i < stores.size(); i++){
-        stores[i].PrintResult();
+        stores[i].printResult();
     }
     return 0;
 }

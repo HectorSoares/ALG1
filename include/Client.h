@@ -1,5 +1,5 @@
-#ifndef PERSON_H
-#define PERSON_H
+#ifndef CLIENT_H
+#define CLIENT_H
 
 #include <string>
 #include <vector>
@@ -8,10 +8,10 @@
 
 using namespace std;
 
-class Person 
+class Client 
 {
     public:
-        Person(int id, int x, int y, int age, float ticket, vector<Store> store);
+        Client(int id, int x, int y, int age, float ticket, vector<Store> store);
         int getX();
         int getY();
         int getId();

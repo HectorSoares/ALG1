@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 #include "Store.h"
-#include "Person.h"
+#include "Client.h"
 
 using namespace std;
 
@@ -12,9 +12,8 @@ class FileHandler
 {
     public:
         FileHandler();
-        void Print();
         vector<Store> getStores(string filePath);
-        vector<Person> getPeople(string filePath, vector<Store> stores);
+        vector<Client> getClients(string filePath, vector<Store> stores);
 };
 
 #endif
