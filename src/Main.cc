@@ -36,7 +36,6 @@ int main(int argc, char* argv[]) {
                     stores[i].SetPerson(people[j].getId());
                     boolAdd = true;                   
                 } else {
-                    //printf("Aluno %i preencida... \t", stores[i].getId());
                     //printf("Pessoa %i preencida com Loja %i... \n", people[j].getId(), people[j].getStoreId());
                     if(people[j].getDistanceToTheStore(stores[i]) < people[j].getDistanceToTheStore(stores[people[j].getStoreId()]) || 
                         (people[j].getDistanceToTheStore(stores[i]) == people[j].getDistanceToTheStore(stores[people[j].getStoreId()]) && stores[i].getId() < people[j].getStoreId())) {

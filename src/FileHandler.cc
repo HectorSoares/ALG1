@@ -28,20 +28,20 @@ string ReturnNextWord(string &line){
     return result;
 }
 
-static const map<string, int> scoreState {
-        { "MG",  0 },
-        { "PR",  10 },
-        { "SP",  20 },
-        { "SC",  30 },
-        { "RJ",  40 },
-        { "RN",  50 },
-        { "RS",  60 }
+static const map<string, float> scoreState {
+        { "MG",  0.0 },
+        { "PR",  10.0 },
+        { "SP",  20.0 },
+        { "SC",  30.0 },
+        { "RJ",  40.0 },
+        { "RN",  50.0 },
+        { "RS",  60.0 }
     };
 
-static const map<string, int> scorePayment {
-        { "DINHEIRO",  1 },
-        { "DEBITO",  2 },
-        { "CREDITO",  3 }
+static const map<string, float> scorePayment {
+        { "DINHEIRO",  1.0 },
+        { "DEBITO",  2.0 },
+        { "CREDITO",  3.0 }
     };
 
 vector<Store> FileHandler::getStores(string filePath) {

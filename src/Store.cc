@@ -79,8 +79,11 @@ void Store::Print(){
 void Store::PrintResult(){
     if (this->allocatedPeople.size()) {
         cout << this->id << endl;
-        for (int id : this->allocatedPeople) {
-        cout << id << " ";
+        for (long unsigned int i = 0; i < this->allocatedPeople.size(); i++) {
+            cout << this->allocatedPeople[i];
+            if(i != this->allocatedPeople.size()-1){
+                cout  << " ";
+            }
         }
         cout << endl;
   }  

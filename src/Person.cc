@@ -38,7 +38,7 @@ float Person::getTicket(){return this->ticket;}
 
 int findDistance(int x, int y, int xDestiny, int yDestiny){
     int moves = 0;
-    while (x != xDestiny || y != yDestiny){
+    while (abs(x - xDestiny) > 1 || abs(y - yDestiny) > 1){
         if(x > xDestiny){
             x--;
 
