@@ -10,6 +10,7 @@ OBJ_FOLDER = ./obj/
 SRC_FOLDER = ./src/
 
 # all sources, objs, and header files
+TMPOUT = .testresult
 MAIN = Main
 TARGET = tp01.exe
 SRC = $(wildcard $(SRC_FOLDER)*.cc)
@@ -19,7 +20,10 @@ $(OBJ_FOLDER)%.o: $(SRC_FOLDER)%.cc
 	$(CC) $(CXXFLAGS) -c $< -o $@ -I$(INCLUDE_FOLDER)
 
 all: $(OBJ)
-	$(CC) $(CXXFLAGS) -o $(BIN_FOLDER)$(TARGET) $(OBJ)
+	$(CC) $(CXXFLAGS) -o $(TARGET) $(OBJ)
+
+test: $(TARGET)
+		@bash run_tests.sh $(BIN_FOLDER)$(TARGET) $(TMPOUT)
 
 clean:
 	@rm -rf $(OBJ_FOLDER)* $(BIN_FOLDER)*

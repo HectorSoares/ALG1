@@ -12,8 +12,8 @@ class FileHandler
 {
     public:
         FileHandler();
-        vector<Store> getStores(string filePath);
-        vector<Client> getClients(string filePath, vector<Store> stores);
+        vector<Store> getStores();
+        vector<Client> getClients(vector<Store> stores);
 };
 
 #endif

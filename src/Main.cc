@@ -8,13 +8,13 @@
 #include <algorithm>
 using namespace std;
 
-int main(int argc, char* argv[]) {
-    string filePath = argv[1];    
+int main() {
+ 
     vector<Store> stores;
     vector<Client> clients;
     FileHandler* file = new FileHandler();
-    stores = file->getStores(filePath);
-    clients = file->getClients(filePath, stores);
+    stores = file->getStores();
+    clients = file->getClients(stores);
     sort(clients.begin(), clients.end(), [](Client &a, Client &b){return ( a.getTicket() > b.getTicket() ) || (a.getTicket() == b.getTicket() && a.getId() < b.getId());});
     bool hasAvailableStore = false;
 

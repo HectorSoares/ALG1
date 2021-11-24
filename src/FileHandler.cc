@@ -36,62 +36,43 @@ static const map<string, float> scorePayment {
         { "CREDITO",  3.0 }
     };
 
-vector<Store> FileHandler::getStores(string filePath) {
+vector<Store> FileHandler::getStores() {
     string line, age, state, distance;
-    int  storeCount;
+    int  storeCount, x, y;
     int  storeCapacity, storeX, storeY ;
-    vector<Store> stores;
-    
-    ifstream File(filePath);
-    if (!File.eof() && File.fail()){
-        cout << "error reading " << filePath << endl;
-    } else {
-        getline (File, line);
-        getline (File, line);
-        storeCount = stoi(line);  
-        
-        for(int i = 0; storeCount > i; i++){
-            getline (File, line);
-            storeCapacity = stoi(ReturnNextWord(line));
-            storeX = stoi(ReturnNextWord(line));
-            storeY = stoi(ReturnNextWord(line));
-            stores.push_back(Store(i, storeX, storeY, storeCapacity));
-        }
-    }
-    File.close();
+    vector<Store> stores;   
+
+    scanf("%i %i",  &x,  &y); 
+    scanf("%i", &storeCount); 
+
+    for(int i=0; i < storeCount; i++){     
+        scanf("%i %i %i", &storeCapacity, &storeX, &storeY);  
+        stores.push_back(Store(i, storeX, storeY, storeCapacity));
+    } 
     return stores;
 }
 
-vector<Client> FileHandler::getClients(string filePath, vector<Store> stores) {
+vector<Client> FileHandler::getClients( vector<Store> stores) {
     string line, state, payment, distance;
-    int   storeCount, clientCount;
+    int    clientCount;
     int  personAge, personX, personY ;
     float ticket;
     vector<Client> client;
+
+    scanf("%d", &clientCount);
+    for(int i=0; i < clientCount; i++){ 
+        cin >> line;
+        personAge = stoi(line);
+        cin >> state;
+        cin >> payment;
+        cin >> line;
+        personX = stoi(line);
+        cin >> line;
+        personY = stoi(line);
+
+        ticket =  (abs(60-personAge)+scoreState.find(state)->second) / scorePayment.find(payment)->second;
+        client.push_back(Client(i, personX, personY, personAge, ticket, stores));
+    }     
     
-    ifstream File(filePath);
-    if (!File.eof() && File.fail()){
-        cout << "error reading " << filePath << endl;
-    } else {
-        getline (File, line);
-        getline (File, line);
-        storeCount = stoi(line);
-        for(int i = 0; storeCount > i; i++){
-            getline (File, line);          
-        }
-        getline (File, line);
-        clientCount = stoi(line);
-        for(int i = 0; clientCount > i; i++){
-            getline (File, line); 
-            personAge = stoi(ReturnNextWord(line));
-            state = ReturnNextWord(line);
-            payment = ReturnNextWord(line);
-            personX = stoi(ReturnNextWord(line));
-            personY = stoi(ReturnNextWord(line));  
-            ticket =  (abs(60-personAge)+scoreState.find(state)->second) / scorePayment.find(payment)->second;   
-            client.push_back(Client(i, personX, personY, personAge, ticket, stores));           
-        }
-    }
-    File.close();
     return client;
 }
